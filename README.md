@@ -26,8 +26,12 @@ Build and test
 ==============
 You can build the main by executing
 `make all`
+
+
 You can just run the tests by executing
 `make test`
+
+
 You can build and execute the hello world source with the
 `make hello`
 command.
