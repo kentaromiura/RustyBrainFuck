@@ -21,3 +21,13 @@ in my C implementation but I cannot find that version online, also there should 
 Anyway this implementation must be 100% compatible with [ENSI specification](http://esoteric.sange.fi/ENSI/brainfuck-1.3.txt) and possibly with the [portable brainfuck spec](http://www.muppetlabs.com/~breadbox/bf/standards.html)
 
 Ideally there should be some tests written to ensure this happens.
+
+Build and test
+==============
+You can build the main by executing
+`make all`
+You can just run the tests by executing
+`make test`
+You can build and execute the hello world source with the
+`make hello`
+command.
