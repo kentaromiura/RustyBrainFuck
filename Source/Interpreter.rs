@@ -3,7 +3,6 @@
 // In order to be testable, I will separate it from the rest of the code
 // it will have a current status layer and a next command
 
-use std::ptr;
 use std::char;
 use std::io;
 
@@ -69,10 +68,7 @@ impl Interpreter {
     return self.code.codeIndex;
   }
   fn change(& mut self, value: int) -> (){
-    let p = self.tape.store.as_mut_ptr();
-      unsafe {
-          ptr::write(p.offset(self.tape.tapeIndex as int), value);
-      }
+    *self.tape.store.get_mut(self.tape.tapeIndex) = value;
   }
   pub fn nextCommand(& mut self, command: char) -> bool {
     if self.skipWhile {
@@ -123,6 +119,7 @@ impl Interpreter {
         }
       },
       '[' => {
+//           [            Pretest loop begins
         if self.tape.store[self.tape.tapeIndex] == 0 {
           // JUMP FORWARD
           self.skipWhile = true;
@@ -133,15 +130,18 @@ impl Interpreter {
         self.code.codeIndex = self.code.codeIndex + 1;
       },
       ']' => {
+//           ]            Pretest loop terminates
         let jump = self.code.jumps.pop();
         self.code.codeIndex = jump.unwrap();
       },
       '.' => {
+//           .            Send output value (as character)
         self.code.codeIndex = self.code.codeIndex + 1;
         let value = self.tape.store[self.tape.tapeIndex];
         print!("{}", char::from_u32(value as u32).unwrap());
       },
       ',' => {
+//           ,            Retrieve input character (as integer)
         self.code.codeIndex = self.code.codeIndex + 1;
         let byte = io::stdin().read_byte().unwrap();
         self.change(byte as int);
@@ -152,15 +152,8 @@ impl Interpreter {
   }
 }
 /*
-
-
-           [            Pretest loop begins
-           ]            Pretest loop terminates
-           ,            Retrieve input character (as integer)
-           .            Send output value (as character)
            #            Output partial tape state (not required)
 */
 pub fn init() -> Interpreter {
-
   return Interpreter::new()
 }
