@@ -67,7 +67,7 @@ impl Interpreter {
 	pub fn nextIndex(&self) -> uint {
 		return self.code.codeIndex;
 	}
-	fn change(& mut self, value: int) -> (){
+	fn change(& mut self, value: int) {
 		*self.tape.store.get_mut(self.tape.tapeIndex) = value;
 	}
 	pub fn nextCommand(& mut self, command: char) -> bool {
