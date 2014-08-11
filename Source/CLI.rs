@@ -3,7 +3,6 @@
 use std::os;
 use std::string::String;
 
-
 pub struct Options {
 	program: String,
 	errors: bool
@@ -17,7 +16,7 @@ impl Options{
 		return self.errors;
 	}
 	pub fn getProgram(&self) -> String {
-		return String::from_str(self.program.as_slice());
+		return self.program.to_string();;
 	}
 }
 
@@ -29,6 +28,5 @@ pub fn main() -> Options{
 		return Options::new(String::from_str(""), true)
 	}
 
-//	println!("The first argument is {}, length {}\n", args[1], args.len());
-	return Options::new(String::from_str(args[1].as_slice()), false);
+	return Options::new(args[1].to_string(), false);
 }

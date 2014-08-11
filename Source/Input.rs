@@ -6,12 +6,11 @@ use std::path::Path;
 #[allow(non_snake_case_functions)]
 pub fn getInput(input: String) -> String {
 	let path = Path::new(input.as_slice());
-//let contents = File::open(&Path::new("message.txt")).read_to_end();
 
 	if path.exists() {
 		let contents = File::open(&path).read_to_string();
 		match contents {
-				Ok(text) => return String::from_str(text.as_slice()),
+				Ok(text) => return text,
 				Err(err) => {print!("Error: {}", err);},
 		}
 	}
